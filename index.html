@@ -43,33 +43,18 @@
             margin-bottom: 20px;
         }
 
-        .nav-tabs {
-            display: flex;
-            gap: 15px;
-        }
+        .nav-tabs { display: flex; gap: 15px; }
 
         .tab-btn {
-            background: none;
-            border: none;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            padding: 5px 0;
-            border-bottom: 2px solid transparent;
+            background: none; border: none; font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem; font-weight: 600; color: var(--text-muted);
+            cursor: pointer; padding: 5px 0; border-bottom: 2px solid transparent;
         }
-
-        .tab-btn.active {
-            color: var(--accent-color);
-            border-bottom: 2px solid var(--accent-color);
-        }
+        .tab-btn.active { color: var(--accent-color); border-bottom: 2px solid var(--accent-color); }
 
         /* Screens */
         .screen-container {
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
+            width: 100%; max-width: 400px; text-align: center;
             animation: fadeIn 0.4s ease; 
         }
 
@@ -82,41 +67,32 @@
         p.subtitle { color: var(--text-muted); margin-top: 0; margin-bottom: 30px; }
 
         /* Paper Cards */
+        #ritual-board {
+            display: flex; flex-direction: column; gap: 20px;
+            padding-bottom: 40px; /* Space at the bottom for scrolling */
+        }
+        
         .ritual-card {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
+            background-color: var(--card-bg); border-radius: 16px; padding: 24px;
             box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.02);
-            border-left: 6px solid var(--accent-color);
-            text-align: left;
+            border-left: 6px solid var(--accent-color); text-align: left;
         }
         .card-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 8px 0; }
         .card-desc { font-size: 1rem; color: var(--text-muted); margin: 0 0 20px 0; line-height: 1.5; }
 
         /* Buttons */
         .btn-primary {
-            background-color: var(--accent-color);
-            color: white;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 30px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
+            background-color: var(--accent-color); color: white; border: none;
+            padding: 14px 24px; border-radius: 30px; font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem; font-weight: 600; cursor: pointer; width: 100%;
             transition: background-color 0.2s ease;
         }
         .btn-primary:hover { background-color: var(--button-hover); }
         
         /* Visual Elements */
         .breathing-circle {
-            width: 180px; height: 180px;
-            background-color: var(--timer-bg);
-            border-radius: 50%;
-            margin: 40px auto;
-            display: flex; align-items: center; justify-content: center;
+            width: 180px; height: 180px; background-color: var(--timer-bg); border-radius: 50%;
+            margin: 40px auto; display: flex; align-items: center; justify-content: center;
             font-size: 2.5rem; font-weight: 700; color: var(--accent-color);
             animation: breathe 8s infinite ease-in-out;
         }
@@ -127,11 +103,7 @@
             100% { transform: scale(1); box-shadow: 0 0 0 rgba(141, 163, 153, 0.2); }
         }
 
-        .yoga-placeholder {
-            font-size: 5rem;
-            margin: 30px 0;
-            animation: float 4s infinite ease-in-out;
-        }
+        .yoga-placeholder { font-size: 5rem; margin: 30px 0; animation: float 4s infinite ease-in-out; }
 
         @keyframes float {
             0% { transform: translateY(0px); }
@@ -140,21 +112,10 @@
         }
 
         /* Greenhouse Grid */
-        #plant-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
+        #plant-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 20px; }
         .plant-slot {
-            background-color: var(--timer-bg);
-            height: 100px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
+            background-color: var(--timer-bg); height: 100px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 2.5rem;
             box-shadow: inset 0px 4px 8px rgba(0,0,0,0.02);
         }
 
@@ -173,23 +134,19 @@
     <main id="screen-home" class="screen-container">
         <h1 id="app-title">Sanctuary</h1>
         <p id="app-subtitle" class="subtitle">Your mindful space engine.</p>
-        <div class="ritual-card">
-            <h2 id="card-1-title" class="card-title">Evening Reset</h2>
-            <p id="card-1-desc" class="card-desc">Clear your workspace to welcome a peaceful night. Wipe down your main surface.</p>
-            <button id="start-btn" class="btn-primary">Start Ritual (10 min)</button>
-        </div>
+        <div id="ritual-board"></div>
     </main>
 
     <main id="screen-timer" class="screen-container hidden">
-        <h1 id="timer-title">Evening Reset</h1>
+        <h1 id="timer-title">Ritual</h1>
         <p id="timer-subtitle" class="subtitle">Moving meditation in progress...</p>
         <div class="breathing-circle">10:00</div>
         <button id="complete-timer-btn" class="btn-primary">Complete & Flow</button>
     </main>
 
     <main id="screen-yoga" class="screen-container hidden">
-        <h1 id="yoga-title">The Counter-Stretch</h1>
-        <p id="yoga-subtitle" class="subtitle">Release your lower back and shoulders.</p>
+        <h1 id="yoga-title">The Flow</h1>
+        <p id="yoga-subtitle" class="subtitle">Breathe and release.</p>
         <div class="yoga-placeholder">🧘‍♀️</div>
         <button id="complete-yoga-btn" class="btn-primary">End Practice</button>
     </main>
@@ -201,59 +158,107 @@
             <div class="plant-slot" id="slot-1"></div>
             <div class="plant-slot" id="slot-2"></div>
             <div class="plant-slot" id="slot-3"></div>
+            <div class="plant-slot" id="slot-4"></div>
+            <div class="plant-slot" id="slot-5"></div>
+            <div class="plant-slot" id="slot-6"></div>
         </div>
     </main>
 
     <script>
-        /* --- 1. STATE & DATA --- */
+        /* --- 1. STATE & DATABASE --- */
         let isSpanish = navigator.language.toLowerCase().includes('es');
         let seedsEarned = 0;
-        const plantTypes = ['🌿', '🪴', '🌺', '🌱', '🌵']; // Array of plants to randomly unlock!
+        let activeRitualIndex = 0; // Remembers which card you clicked
+        const plantTypes = ['🌿', '🪴', '🌺', '🌱', '🌵', '🌻']; 
         
-        const dict = {
+        // Static UI Text
+        const uiDict = {
             en: {
                 tabRituals: "Rituals", tabGreenhouse: "Greenhouse",
                 title: "Sanctuary", subtitle: "Your mindful space engine.",
-                cardTitle: "Evening Reset", cardDesc: "Clear your workspace to welcome a peaceful night. Wipe down your main surface.",
-                startBtn: "Start Ritual (10 min)", timerSubtitle: "Moving meditation in progress...", completeTimerBtn: "Complete & Flow",
-                yogaTitle: "The Counter-Stretch", yogaSubtitle: "Release your lower back and shoulders.", completeYogaBtn: "End Practice",
-                ghTitle: "My Greenhouse", ghSubtitle: "Your seeds of consistency."
+                timerSubtitle: "Moving meditation in progress...", completeTimerBtn: "Complete & Flow",
+                completeYogaBtn: "End Practice", ghTitle: "My Greenhouse", ghSubtitle: "Your seeds of consistency.",
+                startBtn: "Start Ritual"
             },
             es: {
                 tabRituals: "Rituales", tabGreenhouse: "Invernadero",
                 title: "Santuario", subtitle: "Tu motor de espacio consciente.",
-                cardTitle: "Aterrizaje Nocturno", cardDesc: "Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.",
-                startBtn: "Iniciar Ritual (10 min)", timerSubtitle: "Meditación en movimiento...", completeTimerBtn: "Completar y Fluir",
-                yogaTitle: "El Contraestiramiento", yogaSubtitle: "Relaja tu zona lumbar y hombros.", completeYogaBtn: "Terminar Práctica",
-                ghTitle: "Mi Invernadero", ghSubtitle: "Tus semillas de constancia."
+                timerSubtitle: "Meditación en movimiento...", completeTimerBtn: "Completar y Fluir",
+                completeYogaBtn: "Terminar Práctica", ghTitle: "Mi Invernadero", ghSubtitle: "Tus semillas de constancia.",
+                startBtn: "Iniciar Ritual"
             }
         };
 
-        /* --- 2. BILINGUAL LOGIC --- */
-        function updateLanguage() {
+        // The Ritual Library!
+        const ritualLibrary = [
+            {
+                en: { title: "The Water Ritual", desc: "Clear the sink to create a flow of fresh energy. Focus on the warmth of the water.", yogaTitle: "The Wrist Release", yogaDesc: "Stretch your wrists, shoulders, and neck." },
+                es: { title: "El Ritual del Agua", desc: "Libera el espacio en tu lavaplatos. Siente la calidez del agua y deja que la energía fluya.", yogaTitle: "Liberación de Muñecas", yogaDesc: "Estira tus muñecas, hombros y cuello." }
+            },
+            {
+                en: { title: "Clearing the Path", desc: "Rescue items from your floor or surfaces. Make space for your feet to ground down.", yogaTitle: "The Grounding Flow", yogaDesc: "Deep lunges and foot stretches." },
+                es: { title: "Despejando el Camino", desc: "Rescata objetos del suelo. Crea espacio para enraizar tus pies.", yogaTitle: "Flujo de Enraizamiento", yogaDesc: "Estocadas profundas y estiramientos de pies." }
+            },
+            {
+                en: { title: "Fabric Alchemy", desc: "Reset your textiles. Start a load or fold a basket, moving mindfully as you sort.", yogaTitle: "The Spinal Twist", yogaDesc: "Seated deep-breathing to counteract folding." },
+                es: { title: "Alquimia de Telas", desc: "Renueva tus textiles. Dobla o lava con intención, moviéndote con consciencia.", yogaTitle: "Torsión Espinal", yogaDesc: "Respiración profunda sentada para contrarrestar el doblez." }
+            },
+            {
+                en: { title: "Resetting the Altar", desc: "Bring a clean slate back to your main workspace. Wipe away yesterday's dust.", yogaTitle: "The Chest Opener", yogaDesc: "Counteract the hunching motion of scrubbing." },
+                es: { title: "Restaurando el Altar", desc: "Trae un lienzo en blanco a tu espacio de trabajo. Limpia el polvo de ayer.", yogaTitle: "Apertura de Pecho", yogaDesc: "Contrarresta el movimiento encorvado de limpiar." }
+            },
+            {
+                en: { title: "Evening Reset", desc: "Clear your workspace to welcome a peaceful night. Wipe down your main surface.", yogaTitle: "The Counter-Stretch", yogaDesc: "Release your lower back and shoulders." },
+                es: { title: "Aterrizaje Nocturno", desc: "Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.", yogaTitle: "El Contraestiramiento", yogaDesc: "Relaja tu zona lumbar y hombros." }
+            }
+        ];
+
+        /* --- 2. RENDER & BILINGUAL LOGIC --- */
+        function renderApp() {
             const l = isSpanish ? 'es' : 'en';
+            
+            // Update Base UI
             document.getElementById('html-root').lang = l;
-            document.getElementById('tab-rituals').innerText = dict[l].tabRituals;
-            document.getElementById('tab-greenhouse').innerText = dict[l].tabGreenhouse;
-            document.getElementById('app-title').innerText = dict[l].title;
-            document.getElementById('app-subtitle').innerText = dict[l].subtitle;
-            document.getElementById('card-1-title').innerText = dict[l].cardTitle;
-            document.getElementById('card-1-desc').innerText = dict[l].cardDesc;
-            document.getElementById('start-btn').innerText = dict[l].startBtn;
-            document.getElementById('timer-title').innerText = dict[l].cardTitle;
-            document.getElementById('timer-subtitle').innerText = dict[l].timerSubtitle;
-            document.getElementById('complete-timer-btn').innerText = dict[l].completeTimerBtn;
-            document.getElementById('yoga-title').innerText = dict[l].yogaTitle;
-            document.getElementById('yoga-subtitle').innerText = dict[l].yogaSubtitle;
-            document.getElementById('complete-yoga-btn').innerText = dict[l].completeYogaBtn;
-            document.getElementById('gh-title').innerText = dict[l].ghTitle;
-            document.getElementById('gh-subtitle').innerText = dict[l].ghSubtitle;
+            document.getElementById('tab-rituals').innerText = uiDict[l].tabRituals;
+            document.getElementById('tab-greenhouse').innerText = uiDict[l].tabGreenhouse;
+            document.getElementById('app-title').innerText = uiDict[l].title;
+            document.getElementById('app-subtitle').innerText = uiDict[l].subtitle;
+            document.getElementById('timer-subtitle').innerText = uiDict[l].timerSubtitle;
+            document.getElementById('complete-timer-btn').innerText = uiDict[l].completeTimerBtn;
+            document.getElementById('complete-yoga-btn').innerText = uiDict[l].completeYogaBtn;
+            document.getElementById('gh-title').innerText = uiDict[l].ghTitle;
+            document.getElementById('gh-subtitle').innerText = uiDict[l].ghSubtitle;
+
+            // Generate the Ritual Board dynamically!
+            const board = document.getElementById('ritual-board');
+            board.innerHTML = ''; // Clear it out first
+            
+            ritualLibrary.forEach((ritual, index) => {
+                const cardHtml = `
+                    <div class="ritual-card">
+                        <h2 class="card-title">${ritual[l].title}</h2>
+                        <p class="card-desc">${ritual[l].desc}</p>
+                        <button class="btn-primary start-btn" onclick="startRitual(${index})">${uiDict[l].startBtn} (10 min)</button>
+                    </div>
+                `;
+                board.innerHTML += cardHtml;
+            });
+
+            // Update Active Timer/Yoga screens if they are open
+            updateActiveScreens();
+        }
+
+        function updateActiveScreens() {
+            const l = isSpanish ? 'es' : 'en';
+            const activeData = ritualLibrary[activeRitualIndex];
+            document.getElementById('timer-title').innerText = activeData[l].title;
+            document.getElementById('yoga-title').innerText = activeData[l].yogaTitle;
+            document.getElementById('yoga-subtitle').innerText = activeData[l].yogaDesc;
         }
 
         document.getElementById('lang-toggle').addEventListener('click', () => {
-            isSpanish = !isSpanish; updateLanguage();
+            isSpanish = !isSpanish; renderApp();
         });
-        updateLanguage();
 
         /* --- 3. NAVIGATION & VIEW SWITCHING --- */
         const screens = {
@@ -262,50 +267,36 @@
             yoga: document.getElementById('screen-yoga'),
             gh: document.getElementById('screen-greenhouse')
         };
-        const tabs = {
-            rituals: document.getElementById('tab-rituals'),
-            greenhouse: document.getElementById('tab-greenhouse')
-        };
+        const tabs = { rituals: document.getElementById('tab-rituals'), greenhouse: document.getElementById('tab-greenhouse') };
 
         function showScreen(screenName) {
             Object.values(screens).forEach(s => s.classList.add('hidden'));
             screens[screenName].classList.remove('hidden');
         }
 
-        // Tab Clicks
-        tabs.rituals.addEventListener('click', () => {
-            showScreen('home');
-            tabs.rituals.classList.add('active');
-            tabs.greenhouse.classList.remove('active');
-        });
-
-        tabs.greenhouse.addEventListener('click', () => {
-            showScreen('gh');
-            tabs.greenhouse.classList.add('active');
-            tabs.rituals.classList.remove('active');
-        });
+        tabs.rituals.addEventListener('click', () => { showScreen('home'); tabs.rituals.classList.add('active'); tabs.greenhouse.classList.remove('active'); });
+        tabs.greenhouse.addEventListener('click', () => { showScreen('gh'); tabs.greenhouse.classList.add('active'); tabs.rituals.classList.remove('active'); });
 
         // The App Flow Loop
-        document.getElementById('start-btn').addEventListener('click', () => {
+        window.startRitual = function(index) {
+            activeRitualIndex = index;
+            updateActiveScreens(); // Ensure timer shows the correct text
             showScreen('timer');
-        });
+        };
 
-        document.getElementById('complete-timer-btn').addEventListener('click', () => {
-            showScreen('yoga');
-        });
+        document.getElementById('complete-timer-btn').addEventListener('click', () => showScreen('yoga'));
 
         document.getElementById('complete-yoga-btn').addEventListener('click', () => {
-            // Reward the user!
             seedsEarned++;
-            if(seedsEarned <= 3) {
-                // Pick a random plant and put it in the grid slot
+            if(seedsEarned <= 6) {
                 const randomPlant = plantTypes[Math.floor(Math.random() * plantTypes.length)];
                 document.getElementById(`slot-${seedsEarned}`).innerText = randomPlant;
             }
-            
-            // Switch to Greenhouse Tab automatically
             tabs.greenhouse.click(); 
         });
+
+        // Start the app!
+        renderApp();
     </script>
 </body>
 </html>
