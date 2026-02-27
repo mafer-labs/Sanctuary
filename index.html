@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sanctuary</title>
+    
+    <link id="manifest-link" rel="manifest" href="manifest-en.json">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Vibe Check: Warm Minimalism */
+        :root {
+            --bg-color: #F7F3EB; /* Warm Linen */
+            --text-color: #4A4A4A; /* Soft Charcoal */
+            --accent-color: #8DA399; /* Sage Green */
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Quicksand', sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh; /* Takes up the whole phone screen */
+            text-align: center;
+        }
+
+        #greenhouse-container {
+            margin-top: 40px;
+            font-size: 3rem; /* Placeholder for our Terrarium */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <button id="lang-toggle" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer;">EN / ES</button>
+    </header>
+    
+    <main>
+        <h1 id="app-title">Sanctuary</h1>
+        <p id="app-subtitle">Your mindful space engine.</p>
+        
+        <div id="greenhouse-container">
+            <p>🌱</p>
+        </div>
+    </main>
+
+    <script>
+        // THE MAGIC TRICK: Auto-detecting the phone's language!
+        const userLang = navigator.language || navigator.userLanguage;
+        const isSpanish = userLang.toLowerCase().includes('es');
+
+        if (isSpanish) {
+            // Swap the HTML language tag
+            document.getElementById('html-root').lang = 'es';
+            // Swap to the Spanish manifest file for the Home Screen name
+            document.getElementById('manifest-link').href = 'manifest-es.json';
+            // Swap the on-screen text
+            document.getElementById('app-title').innerText = 'Santuario';
+            document.getElementById('app-subtitle').innerText = 'Tu motor de espacio consciente.';
+        }
+    </script>
+</body>
+</html>
