@@ -6,10 +6,10 @@
     <title>Sanctuary</title>
     
     <link id="manifest-link" rel="manifest" href="manifest-en.json">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Base Vibe Check: Warm Minimalism */
+        /* Base Vibe Check */
         :root {
             --bg-color: #F7F3EB;
             --card-bg: #FFFFFF;
@@ -17,7 +17,7 @@
             --text-muted: #7A7A7A;
             --accent-color: #8DA399;
             --button-hover: #7A8F85;
-            --timer-bg: #E8EDE9; /* Very soft sage for the pulsing circle */
+            --timer-bg: #E8EDE9;
         }
         
         body {
@@ -32,22 +32,45 @@
             min-height: 100vh;
         }
 
+        /* Top Navigation */
         header {
             width: 100%;
             max-width: 400px;
             display: flex;
-            justify-content: flex-end;
-            padding-top: 20px;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            margin-bottom: 20px;
         }
 
-        /* Container to keep our screens perfectly centered */
+        .nav-tabs {
+            display: flex;
+            gap: 15px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* Screens */
         .screen-container {
             width: 100%;
             max-width: 400px;
-            margin-top: 20px;
             text-align: center;
-            /* Smooth fade transition between screens */
-            animation: fadeIn 0.5s ease; 
+            animation: fadeIn 0.4s ease; 
         }
 
         @keyframes fadeIn {
@@ -58,7 +81,7 @@
         h1 { font-size: 2.2rem; margin-bottom: 5px; color: var(--text-color); }
         p.subtitle { color: var(--text-muted); margin-top: 0; margin-bottom: 30px; }
 
-        /* The Paper-Morphism Card */
+        /* Paper Cards */
         .ritual-card {
             background-color: var(--card-bg);
             border-radius: 16px;
@@ -67,10 +90,8 @@
             box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.02);
             border-left: 6px solid var(--accent-color);
             text-align: left;
-            transition: transform 0.2s ease;
         }
-        .ritual-card:active { transform: scale(0.98); }
-        .card-title { font-size: 1.3rem; font-weight: 600; margin: 0 0 8px 0; }
+        .card-title { font-size: 1.3rem; font-weight: 700; margin: 0 0 8px 0; }
         .card-desc { font-size: 1rem; color: var(--text-muted); margin: 0 0 20px 0; line-height: 1.5; }
 
         /* Buttons */
@@ -78,10 +99,10 @@
             background-color: var(--accent-color);
             color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 14px 24px;
             border-radius: 30px;
             font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
             width: 100%;
@@ -89,32 +110,14 @@
         }
         .btn-primary:hover { background-color: var(--button-hover); }
         
-        .btn-secondary {
-            background: none;
-            color: var(--text-muted);
-            border: none;
-            padding: 12px 24px;
-            margin-top: 15px;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 1rem;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* --- NEW: Active Timer Screen Styling --- */
+        /* Visual Elements */
         .breathing-circle {
-            width: 200px;
-            height: 200px;
+            width: 180px; height: 180px;
             background-color: var(--timer-bg);
             border-radius: 50%;
             margin: 40px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 600;
-            color: var(--accent-color);
-            /* This animation makes the circle softly pulse like breathing */
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; font-weight: 700; color: var(--accent-color);
             animation: breathe 8s infinite ease-in-out;
         }
 
@@ -123,119 +126,185 @@
             50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(141, 163, 153, 0.4); }
             100% { transform: scale(1); box-shadow: 0 0 0 rgba(141, 163, 153, 0.2); }
         }
-        
-        /* Utility class to hide elements */
+
+        .yoga-placeholder {
+            font-size: 5rem;
+            margin: 30px 0;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Greenhouse Grid */
+        #plant-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .plant-slot {
+            background-color: var(--timer-bg);
+            height: 100px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: inset 0px 4px 8px rgba(0,0,0,0.02);
+        }
+
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
     <header>
-        <button id="lang-toggle" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer; font-size: 1rem;">EN / ES</button>
+        <div class="nav-tabs">
+            <button id="tab-rituals" class="tab-btn active">Rituals</button>
+            <button id="tab-greenhouse" class="tab-btn">Greenhouse</button>
+        </div>
+        <button id="lang-toggle" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer; font-size: 1rem;">EN/ES</button>
     </header>
     
     <main id="screen-home" class="screen-container">
         <h1 id="app-title">Sanctuary</h1>
         <p id="app-subtitle" class="subtitle">Your mindful space engine.</p>
-        
-        <div id="ritual-board">
-            <div class="ritual-card">
-                <h2 id="card-1-title" class="card-title">Evening Reset</h2>
-                <p id="card-1-desc" class="card-desc">Clear your workspace to welcome a peaceful night. Wipe down your main surface.</p>
-                <button id="start-btn" class="btn-primary">Start Ritual (10 min)</button>
-            </div>
+        <div class="ritual-card">
+            <h2 id="card-1-title" class="card-title">Evening Reset</h2>
+            <p id="card-1-desc" class="card-desc">Clear your workspace to welcome a peaceful night. Wipe down your main surface.</p>
+            <button id="start-btn" class="btn-primary">Start Ritual (10 min)</button>
         </div>
     </main>
 
     <main id="screen-timer" class="screen-container hidden">
         <h1 id="timer-title">Evening Reset</h1>
         <p id="timer-subtitle" class="subtitle">Moving meditation in progress...</p>
-        
-        <div class="breathing-circle">
-            <span id="countdown-text">10:00</span>
+        <div class="breathing-circle">10:00</div>
+        <button id="complete-timer-btn" class="btn-primary">Complete & Flow</button>
+    </main>
+
+    <main id="screen-yoga" class="screen-container hidden">
+        <h1 id="yoga-title">The Counter-Stretch</h1>
+        <p id="yoga-subtitle" class="subtitle">Release your lower back and shoulders.</p>
+        <div class="yoga-placeholder">🧘‍♀️</div>
+        <button id="complete-yoga-btn" class="btn-primary">End Practice</button>
+    </main>
+
+    <main id="screen-greenhouse" class="screen-container hidden">
+        <h1 id="gh-title">My Greenhouse</h1>
+        <p id="gh-subtitle" class="subtitle">Your seeds of consistency.</p>
+        <div id="plant-grid">
+            <div class="plant-slot" id="slot-1"></div>
+            <div class="plant-slot" id="slot-2"></div>
+            <div class="plant-slot" id="slot-3"></div>
         </div>
-        
-        <button id="complete-btn" class="btn-primary">Complete Ritual</button>
-        <button id="cancel-btn" class="btn-secondary">Cancel</button>
     </main>
 
     <script>
         /* --- 1. STATE & DATA --- */
-        // We store our text in a dictionary so we can easily swap it!
         let isSpanish = navigator.language.toLowerCase().includes('es');
+        let seedsEarned = 0;
+        const plantTypes = ['🌿', '🪴', '🌺', '🌱', '🌵']; // Array of plants to randomly unlock!
         
-        const dictionary = {
+        const dict = {
             en: {
-                title: "Sanctuary",
-                subtitle: "Your mindful space engine.",
-                cardTitle: "Evening Reset",
-                cardDesc: "Clear your workspace to welcome a peaceful night. Wipe down your main surface.",
-                startBtn: "Start Ritual (10 min)",
-                timerSubtitle: "Moving meditation in progress...",
-                completeBtn: "Complete Ritual",
-                cancelBtn: "Cancel"
+                tabRituals: "Rituals", tabGreenhouse: "Greenhouse",
+                title: "Sanctuary", subtitle: "Your mindful space engine.",
+                cardTitle: "Evening Reset", cardDesc: "Clear your workspace to welcome a peaceful night. Wipe down your main surface.",
+                startBtn: "Start Ritual (10 min)", timerSubtitle: "Moving meditation in progress...", completeTimerBtn: "Complete & Flow",
+                yogaTitle: "The Counter-Stretch", yogaSubtitle: "Release your lower back and shoulders.", completeYogaBtn: "End Practice",
+                ghTitle: "My Greenhouse", ghSubtitle: "Your seeds of consistency."
             },
             es: {
-                title: "Santuario",
-                subtitle: "Tu motor de espacio consciente.",
-                cardTitle: "Aterrizaje Nocturno",
-                cardDesc: "Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.",
-                startBtn: "Iniciar Ritual (10 min)",
-                timerSubtitle: "Meditación en movimiento...",
-                completeBtn: "Completar Ritual",
-                cancelBtn: "Cancelar"
+                tabRituals: "Rituales", tabGreenhouse: "Invernadero",
+                title: "Santuario", subtitle: "Tu motor de espacio consciente.",
+                cardTitle: "Aterrizaje Nocturno", cardDesc: "Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.",
+                startBtn: "Iniciar Ritual (10 min)", timerSubtitle: "Meditación en movimiento...", completeTimerBtn: "Completar y Fluir",
+                yogaTitle: "El Contraestiramiento", yogaSubtitle: "Relaja tu zona lumbar y hombros.", completeYogaBtn: "Terminar Práctica",
+                ghTitle: "Mi Invernadero", ghSubtitle: "Tus semillas de constancia."
             }
         };
 
-        /* --- 2. BILINGUAL TOGGLE LOGIC --- */
+        /* --- 2. BILINGUAL LOGIC --- */
         function updateLanguage() {
-            const lang = isSpanish ? 'es' : 'en';
-            
-            // Update HTML lang attribute
-            document.getElementById('html-root').lang = lang;
-            
-            // Apply text from our dictionary
-            document.getElementById('app-title').innerText = dictionary[lang].title;
-            document.getElementById('app-subtitle').innerText = dictionary[lang].subtitle;
-            document.getElementById('card-1-title').innerText = dictionary[lang].cardTitle;
-            document.getElementById('card-1-desc').innerText = dictionary[lang].cardDesc;
-            document.getElementById('start-btn').innerText = dictionary[lang].startBtn;
-            
-            document.getElementById('timer-title').innerText = dictionary[lang].cardTitle;
-            document.getElementById('timer-subtitle').innerText = dictionary[lang].timerSubtitle;
-            document.getElementById('complete-btn').innerText = dictionary[lang].completeBtn;
-            document.getElementById('cancel-btn').innerText = dictionary[lang].cancelBtn;
+            const l = isSpanish ? 'es' : 'en';
+            document.getElementById('html-root').lang = l;
+            document.getElementById('tab-rituals').innerText = dict[l].tabRituals;
+            document.getElementById('tab-greenhouse').innerText = dict[l].tabGreenhouse;
+            document.getElementById('app-title').innerText = dict[l].title;
+            document.getElementById('app-subtitle').innerText = dict[l].subtitle;
+            document.getElementById('card-1-title').innerText = dict[l].cardTitle;
+            document.getElementById('card-1-desc').innerText = dict[l].cardDesc;
+            document.getElementById('start-btn').innerText = dict[l].startBtn;
+            document.getElementById('timer-title').innerText = dict[l].cardTitle;
+            document.getElementById('timer-subtitle').innerText = dict[l].timerSubtitle;
+            document.getElementById('complete-timer-btn').innerText = dict[l].completeTimerBtn;
+            document.getElementById('yoga-title').innerText = dict[l].yogaTitle;
+            document.getElementById('yoga-subtitle').innerText = dict[l].yogaSubtitle;
+            document.getElementById('complete-yoga-btn').innerText = dict[l].completeYogaBtn;
+            document.getElementById('gh-title').innerText = dict[l].ghTitle;
+            document.getElementById('gh-subtitle').innerText = dict[l].ghSubtitle;
         }
 
-        // Listen for clicks on the EN/ES button
         document.getElementById('lang-toggle').addEventListener('click', () => {
-            isSpanish = !isSpanish; // Flip the language
-            updateLanguage(); // Refresh the text
+            isSpanish = !isSpanish; updateLanguage();
         });
-
-        // Run once on load to set initial language
         updateLanguage();
 
-        /* --- 3. VIEW SWITCHING LOGIC --- */
-        const screenHome = document.getElementById('screen-home');
-        const screenTimer = document.getElementById('screen-timer');
+        /* --- 3. NAVIGATION & VIEW SWITCHING --- */
+        const screens = {
+            home: document.getElementById('screen-home'),
+            timer: document.getElementById('screen-timer'),
+            yoga: document.getElementById('screen-yoga'),
+            gh: document.getElementById('screen-greenhouse')
+        };
+        const tabs = {
+            rituals: document.getElementById('tab-rituals'),
+            greenhouse: document.getElementById('tab-greenhouse')
+        };
 
-        // When "Start Ritual" is clicked
+        function showScreen(screenName) {
+            Object.values(screens).forEach(s => s.classList.add('hidden'));
+            screens[screenName].classList.remove('hidden');
+        }
+
+        // Tab Clicks
+        tabs.rituals.addEventListener('click', () => {
+            showScreen('home');
+            tabs.rituals.classList.add('active');
+            tabs.greenhouse.classList.remove('active');
+        });
+
+        tabs.greenhouse.addEventListener('click', () => {
+            showScreen('gh');
+            tabs.greenhouse.classList.add('active');
+            tabs.rituals.classList.remove('active');
+        });
+
+        // The App Flow Loop
         document.getElementById('start-btn').addEventListener('click', () => {
-            screenHome.classList.add('hidden');
-            screenTimer.classList.remove('hidden');
+            showScreen('timer');
         });
 
-        // When "Cancel" is clicked
-        document.getElementById('cancel-btn').addEventListener('click', () => {
-            screenTimer.classList.add('hidden');
-            screenHome.classList.remove('hidden');
+        document.getElementById('complete-timer-btn').addEventListener('click', () => {
+            showScreen('yoga');
         });
 
-        // When "Complete" is clicked (For now, just goes back to home)
-        document.getElementById('complete-btn').addEventListener('click', () => {
-            alert(isSpanish ? "¡Ritual completado! Semilla ganada. 🌱" : "Ritual complete! Seed earned. 🌱");
-            screenTimer.classList.add('hidden');
-            screenHome.classList.remove('hidden');
+        document.getElementById('complete-yoga-btn').addEventListener('click', () => {
+            // Reward the user!
+            seedsEarned++;
+            if(seedsEarned <= 3) {
+                // Pick a random plant and put it in the grid slot
+                const randomPlant = plantTypes[Math.floor(Math.random() * plantTypes.length)];
+                document.getElementById(`slot-${seedsEarned}`).innerText = randomPlant;
+            }
+            
+            // Switch to Greenhouse Tab automatically
+            tabs.greenhouse.click(); 
         });
     </script>
 </body>
