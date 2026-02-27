@@ -11,12 +11,13 @@
     <style>
         /* Base Vibe Check: Warm Minimalism */
         :root {
-            --bg-color: #F7F3EB; /* Warm Linen */
-            --card-bg: #FFFFFF; /* Crisp Paper */
-            --text-color: #4A4A4A; /* Soft Charcoal */
-            --text-muted: #7A7A7A; /* Softer text for descriptions */
-            --accent-color: #8DA399; /* Sage Green */
-            --button-hover: #7A8F85; /* Darker Sage */
+            --bg-color: #F7F3EB;
+            --card-bg: #FFFFFF;
+            --text-color: #4A4A4A;
+            --text-muted: #7A7A7A;
+            --accent-color: #8DA399;
+            --button-hover: #7A8F85;
+            --timer-bg: #E8EDE9; /* Very soft sage for the pulsing circle */
         }
         
         body {
@@ -39,24 +40,23 @@
             padding-top: 20px;
         }
 
-        main {
+        /* Container to keep our screens perfectly centered */
+        .screen-container {
             width: 100%;
             max-width: 400px;
             margin-top: 20px;
             text-align: center;
+            /* Smooth fade transition between screens */
+            animation: fadeIn 0.5s ease; 
         }
 
-        h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
-            color: var(--text-color);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        p.subtitle {
-            color: var(--text-muted);
-            margin-top: 0;
-            margin-bottom: 30px;
-        }
+        h1 { font-size: 2.2rem; margin-bottom: 5px; color: var(--text-color); }
+        p.subtitle { color: var(--text-muted); margin-top: 0; margin-bottom: 30px; }
 
         /* The Paper-Morphism Card */
         .ritual-card {
@@ -69,26 +69,12 @@
             text-align: left;
             transition: transform 0.2s ease;
         }
+        .ritual-card:active { transform: scale(0.98); }
+        .card-title { font-size: 1.3rem; font-weight: 600; margin: 0 0 8px 0; }
+        .card-desc { font-size: 1rem; color: var(--text-muted); margin: 0 0 20px 0; line-height: 1.5; }
 
-        .ritual-card:active {
-            transform: scale(0.98); /* Satisfying physical press effect */
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin: 0 0 8px 0;
-        }
-
-        .card-desc {
-            font-size: 1rem;
-            color: var(--text-muted);
-            margin: 0 0 20px 0;
-            line-height: 1.5;
-        }
-
-        /* The Breathing Button */
-        .start-btn {
+        /* Buttons */
+        .btn-primary {
             background-color: var(--accent-color);
             color: white;
             border: none;
@@ -101,10 +87,45 @@
             width: 100%;
             transition: background-color 0.2s ease;
         }
-
-        .start-btn:hover {
-            background-color: var(--button-hover);
+        .btn-primary:hover { background-color: var(--button-hover); }
+        
+        .btn-secondary {
+            background: none;
+            color: var(--text-muted);
+            border: none;
+            padding: 12px 24px;
+            margin-top: 15px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: underline;
         }
+
+        /* --- NEW: Active Timer Screen Styling --- */
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            background-color: var(--timer-bg);
+            border-radius: 50%;
+            margin: 40px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            /* This animation makes the circle softly pulse like breathing */
+            animation: breathe 8s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0% { transform: scale(1); box-shadow: 0 0 0 rgba(141, 163, 153, 0.2); }
+            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(141, 163, 153, 0.4); }
+            100% { transform: scale(1); box-shadow: 0 0 0 rgba(141, 163, 153, 0.2); }
+        }
+        
+        /* Utility class to hide elements */
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
@@ -112,7 +133,7 @@
         <button id="lang-toggle" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer; font-size: 1rem;">EN / ES</button>
     </header>
     
-    <main>
+    <main id="screen-home" class="screen-container">
         <h1 id="app-title">Sanctuary</h1>
         <p id="app-subtitle" class="subtitle">Your mindful space engine.</p>
         
@@ -120,30 +141,102 @@
             <div class="ritual-card">
                 <h2 id="card-1-title" class="card-title">Evening Reset</h2>
                 <p id="card-1-desc" class="card-desc">Clear your workspace to welcome a peaceful night. Wipe down your main surface.</p>
-                <button id="card-1-btn" class="start-btn">Start Ritual (10 min)</button>
+                <button id="start-btn" class="btn-primary">Start Ritual (10 min)</button>
             </div>
         </div>
     </main>
 
-    <script>
-        // Bilingual Auto-Detect Magic
-        const userLang = navigator.language || navigator.userLanguage;
-        const isSpanish = userLang.toLowerCase().includes('es');
+    <main id="screen-timer" class="screen-container hidden">
+        <h1 id="timer-title">Evening Reset</h1>
+        <p id="timer-subtitle" class="subtitle">Moving meditation in progress...</p>
+        
+        <div class="breathing-circle">
+            <span id="countdown-text">10:00</span>
+        </div>
+        
+        <button id="complete-btn" class="btn-primary">Complete Ritual</button>
+        <button id="cancel-btn" class="btn-secondary">Cancel</button>
+    </main>
 
-        if (isSpanish) {
-            // Swap HTML language tag and Home Screen manifest
-            document.getElementById('html-root').lang = 'es';
-            document.getElementById('manifest-link').href = 'manifest-es.json';
+    <script>
+        /* --- 1. STATE & DATA --- */
+        // We store our text in a dictionary so we can easily swap it!
+        let isSpanish = navigator.language.toLowerCase().includes('es');
+        
+        const dictionary = {
+            en: {
+                title: "Sanctuary",
+                subtitle: "Your mindful space engine.",
+                cardTitle: "Evening Reset",
+                cardDesc: "Clear your workspace to welcome a peaceful night. Wipe down your main surface.",
+                startBtn: "Start Ritual (10 min)",
+                timerSubtitle: "Moving meditation in progress...",
+                completeBtn: "Complete Ritual",
+                cancelBtn: "Cancel"
+            },
+            es: {
+                title: "Santuario",
+                subtitle: "Tu motor de espacio consciente.",
+                cardTitle: "Aterrizaje Nocturno",
+                cardDesc: "Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.",
+                startBtn: "Iniciar Ritual (10 min)",
+                timerSubtitle: "Meditación en movimiento...",
+                completeBtn: "Completar Ritual",
+                cancelBtn: "Cancelar"
+            }
+        };
+
+        /* --- 2. BILINGUAL TOGGLE LOGIC --- */
+        function updateLanguage() {
+            const lang = isSpanish ? 'es' : 'en';
             
-            // Swap Main App Text
-            document.getElementById('app-title').innerText = 'Santuario';
-            document.getElementById('app-subtitle').innerText = 'Tu motor de espacio consciente.';
+            // Update HTML lang attribute
+            document.getElementById('html-root').lang = lang;
             
-            // Swap Ritual Card Text
-            document.getElementById('card-1-title').innerText = 'Aterrizaje Nocturno';
-            document.getElementById('card-1-desc').innerText = 'Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.';
-            document.getElementById('card-1-btn').innerText = 'Iniciar Ritual (10 min)';
+            // Apply text from our dictionary
+            document.getElementById('app-title').innerText = dictionary[lang].title;
+            document.getElementById('app-subtitle').innerText = dictionary[lang].subtitle;
+            document.getElementById('card-1-title').innerText = dictionary[lang].cardTitle;
+            document.getElementById('card-1-desc').innerText = dictionary[lang].cardDesc;
+            document.getElementById('start-btn').innerText = dictionary[lang].startBtn;
+            
+            document.getElementById('timer-title').innerText = dictionary[lang].cardTitle;
+            document.getElementById('timer-subtitle').innerText = dictionary[lang].timerSubtitle;
+            document.getElementById('complete-btn').innerText = dictionary[lang].completeBtn;
+            document.getElementById('cancel-btn').innerText = dictionary[lang].cancelBtn;
         }
+
+        // Listen for clicks on the EN/ES button
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            isSpanish = !isSpanish; // Flip the language
+            updateLanguage(); // Refresh the text
+        });
+
+        // Run once on load to set initial language
+        updateLanguage();
+
+        /* --- 3. VIEW SWITCHING LOGIC --- */
+        const screenHome = document.getElementById('screen-home');
+        const screenTimer = document.getElementById('screen-timer');
+
+        // When "Start Ritual" is clicked
+        document.getElementById('start-btn').addEventListener('click', () => {
+            screenHome.classList.add('hidden');
+            screenTimer.classList.remove('hidden');
+        });
+
+        // When "Cancel" is clicked
+        document.getElementById('cancel-btn').addEventListener('click', () => {
+            screenTimer.classList.add('hidden');
+            screenHome.classList.remove('hidden');
+        });
+
+        // When "Complete" is clicked (For now, just goes back to home)
+        document.getElementById('complete-btn').addEventListener('click', () => {
+            alert(isSpanish ? "¡Ritual completado! Semilla ganada. 🌱" : "Ritual complete! Seed earned. 🌱");
+            screenTimer.classList.add('hidden');
+            screenHome.classList.remove('hidden');
+        });
     </script>
 </body>
 </html>
