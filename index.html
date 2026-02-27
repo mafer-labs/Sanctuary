@@ -6,15 +6,17 @@
     <title>Sanctuary</title>
     
     <link id="manifest-link" rel="manifest" href="manifest-en.json">
-    
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
         /* Base Vibe Check: Warm Minimalism */
         :root {
             --bg-color: #F7F3EB; /* Warm Linen */
+            --card-bg: #FFFFFF; /* Crisp Paper */
             --text-color: #4A4A4A; /* Soft Charcoal */
+            --text-muted: #7A7A7A; /* Softer text for descriptions */
             --accent-color: #8DA399; /* Sage Green */
+            --button-hover: #7A8F85; /* Darker Sage */
         }
         
         body {
@@ -26,44 +28,121 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh; /* Takes up the whole phone screen */
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 20px;
+        }
+
+        main {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 20px;
             text-align: center;
         }
 
-        #greenhouse-container {
-            margin-top: 40px;
-            font-size: 3rem; /* Placeholder for our Terrarium */
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        /* The Paper-Morphism Card */
+        .ritual-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.02);
+            border-left: 6px solid var(--accent-color);
+            text-align: left;
+            transition: transform 0.2s ease;
+        }
+
+        .ritual-card:active {
+            transform: scale(0.98); /* Satisfying physical press effect */
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin: 0 0 20px 0;
+            line-height: 1.5;
+        }
+
+        /* The Breathing Button */
+        .start-btn {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.2s ease;
+        }
+
+        .start-btn:hover {
+            background-color: var(--button-hover);
         }
     </style>
 </head>
 <body>
     <header>
-        <button id="lang-toggle" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer;">EN / ES</button>
+        <button id="lang-toggle" style="background:none; border:none; color:var(--accent-color); font-weight:bold; cursor:pointer; font-size: 1rem;">EN / ES</button>
     </header>
     
     <main>
         <h1 id="app-title">Sanctuary</h1>
-        <p id="app-subtitle">Your mindful space engine.</p>
+        <p id="app-subtitle" class="subtitle">Your mindful space engine.</p>
         
-        <div id="greenhouse-container">
-            <p>🌱</p>
+        <div id="ritual-board">
+            <div class="ritual-card">
+                <h2 id="card-1-title" class="card-title">Evening Reset</h2>
+                <p id="card-1-desc" class="card-desc">Clear your workspace to welcome a peaceful night. Wipe down your main surface.</p>
+                <button id="card-1-btn" class="start-btn">Start Ritual (10 min)</button>
+            </div>
         </div>
     </main>
 
     <script>
-        // THE MAGIC TRICK: Auto-detecting the phone's language!
+        // Bilingual Auto-Detect Magic
         const userLang = navigator.language || navigator.userLanguage;
         const isSpanish = userLang.toLowerCase().includes('es');
 
         if (isSpanish) {
-            // Swap the HTML language tag
+            // Swap HTML language tag and Home Screen manifest
             document.getElementById('html-root').lang = 'es';
-            // Swap to the Spanish manifest file for the Home Screen name
             document.getElementById('manifest-link').href = 'manifest-es.json';
-            // Swap the on-screen text
+            
+            // Swap Main App Text
             document.getElementById('app-title').innerText = 'Santuario';
             document.getElementById('app-subtitle').innerText = 'Tu motor de espacio consciente.';
+            
+            // Swap Ritual Card Text
+            document.getElementById('card-1-title').innerText = 'Aterrizaje Nocturno';
+            document.getElementById('card-1-desc').innerText = 'Despeja tu espacio para una noche tranquila. Limpia tu superficie principal.';
+            document.getElementById('card-1-btn').innerText = 'Iniciar Ritual (10 min)';
         }
     </script>
 </body>
